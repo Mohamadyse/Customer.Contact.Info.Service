@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using XYZ.Customer.Contacts.Service.Business.Interfaces;
+using XYZ.Customer.Contacts.Service.Business.Providers;
 using XYZ.Customer.Contacts.Service.Web.Interfaces;
 using XYZ.Customer.Contacts.Service.Web.Validation;
 
@@ -22,6 +24,7 @@ namespace XYZ.Customer.Contacts.Service.Web
         {
             services.AddControllers();
             services.AddScoped<ICustomerValidator, CustomerValidator>();
+            services.AddScoped<ICustomerProvider, CustomerProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using XYZ.Customer.Contacts.Service.Web.Interfaces;
+using XYZ.Customer.Contacts.Service.Web.ViewModels;
 
 namespace XYZ.Customer.Contacts.Service.Web.Validation
 {
@@ -12,7 +13,7 @@ namespace XYZ.Customer.Contacts.Service.Web.Validation
       
         #region Public Methods
 
-        public  void Vaidate(Models.Customer customer)
+        public  void Vaidate(CustomerViewModel customer)
         {
             string message;
             if (customer is null)
@@ -33,7 +34,7 @@ namespace XYZ.Customer.Contacts.Service.Web.Validation
 
         #region Private Methods
 
-        private static bool SecurityNumberValidator(string pnr, out string message)
+        public bool SecurityNumberValidator(string pnr, out string message)
         {
 
             if (string.IsNullOrEmpty(pnr)) { message = ""; return false; }
