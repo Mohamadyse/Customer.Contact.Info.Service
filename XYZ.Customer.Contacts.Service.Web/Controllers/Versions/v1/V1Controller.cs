@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using XYZ.Customer.Contacts.Service.Web.Validation;
 
 namespace XYZ.Customer.Contacts.Service.Web.Controllers.Versions.v1
 {
@@ -9,6 +10,7 @@ namespace XYZ.Customer.Contacts.Service.Web.Controllers.Versions.v1
     /// </summary>
     [ApiController]
     [Route("api/v1")]
+    [ModelStateValidatorAttribute]
     [Produces("application/json")]
     public abstract class V1Controller : ControllerBase
     {
