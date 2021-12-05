@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace XYZ.Customer.Contacts.Service.Data.Models
 {
-    public partial class CustomersDb
+    public partial class CustomerDBModel
     {
         public string Prn { get; set; }
         public string Email { get; set; }

@@ -19,7 +19,7 @@ namespace XYZ.Customer.Contacts.Service.Data.Models
         {
         }
 
-        public virtual DbSet<CustomersDb> CustomersDb { get; set; }
+        public virtual DbSet<CustomerDBModel> CustomersDb { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,7 +32,7 @@ namespace XYZ.Customer.Contacts.Service.Data.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CustomersDb>(entity =>
+            modelBuilder.Entity<CustomerDBModel>(entity =>
             {
                 entity.HasKey(e => e.Prn)
                     .HasName("PK__Customer__C5732E114DAC1815");
