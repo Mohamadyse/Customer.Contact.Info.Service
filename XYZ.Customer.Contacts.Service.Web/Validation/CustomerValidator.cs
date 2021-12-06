@@ -8,12 +8,12 @@ using XYZ.Customer.Contacts.Service.Web.ViewModels;
 
 namespace XYZ.Customer.Contacts.Service.Web.Validation
 {
-    public  class CustomerValidator : ICustomerValidator
+    public class CustomerValidator : ICustomerValidator
     {
-      
+
         #region Public Methods
 
-        public  void Vaidate(CustomerViewModel customer)
+        public void Vaidate(CustomerViewModel customer)
         {
             string message;
             if (customer is null)
@@ -40,6 +40,7 @@ namespace XYZ.Customer.Contacts.Service.Web.Validation
             if (string.IsNullOrEmpty(pnr)) { message = ""; return false; }
 
             pnr = CleanString(pnr);
+            if (string.IsNullOrEmpty(pnr) || (pnr.Length != 12) || (pnr.Length != 10)) { message = "Invalid personal number. "; return false; }
 
             var pattern = "^(19|20)?[0-9]{6}[0-9]{4}$";
 
@@ -56,12 +57,11 @@ namespace XYZ.Customer.Contacts.Service.Web.Validation
         {
             if (string.IsNullOrEmpty(email)) return true;
 
-
             try
             {
-                if( Regex.IsMatch(email,
+                if (Regex.IsMatch(email,
                     @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
-                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250)) ) { return true; }
+                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250))) { return true; }
                 else
                 {
                     message += "Invalid email address. ";
@@ -70,7 +70,7 @@ namespace XYZ.Customer.Contacts.Service.Web.Validation
             }
             catch (RegexMatchTimeoutException)
             {
-            
+
                 message += "Invalid email address. ";
                 return false;
             };
