@@ -20,6 +20,11 @@ The Application is a REST API providing methods for retrieval, creation, update 
 CREATE TABLE CustomerDB ( Pnr varchar(255) NOT NULL, Email varchar(255) , PhoneNumber varchar(255), PRIMARY KEY (Pnr) );
 ```
 
+## Instructions to build and run the microservice.
+
+The application should be packaged in docker. but this part of the task couldn't be verified because of missing cert, but on the other hand, the application is packageable in IIS Express
+P.S To build and run the application in IIS Express: just set XYZ.Customer.Contacts.Service.Web as a startup project
+
 ## Git Repository
 
 [Repo](https://github.com/Mohamadyse/Customer.Contact.Info.Service.git)
