@@ -11,13 +11,21 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
 COPY ["XYZ.Customer.Contacts.Service.Web/XYZ.Customer.Contacts.Service.Web.csproj", "XYZ.Customer.Contacts.Service.Web/"]
+COPY ["XYZ.Customer.Contacts.Service.Data/XYZ.Customer.Contacts.Service.Data.csproj", "XYZ.Customer.Contacts.Service.Data/"]
+COPY ["XYZ.Customer.Contacts.Service.Business/XYZ.Customer.Contacts.Service.Business.csproj", "XYZ.Customer.Contacts.Service.Business/"]
+
 RUN dotnet restore "XYZ.Customer.Contacts.Service.Web/XYZ.Customer.Contacts.Service.Web.csproj"
 COPY . .
 WORKDIR "/src/XYZ.Customer.Contacts.Service.Web"
 RUN dotnet build "XYZ.Customer.Contacts.Service.Web.csproj" -c Release -o /app/build
+WORKDIR "/src/XYZ.Customer.Contacts.Service.Data"
+RUN dotnet build "XYZ.Customer.Contacts.Service.Data.csproj" -c Release -o /app/build
+WORKDIR "/src/XYZ.Customer.Contacts.Service.Business"
+RUN dotnet build "XYZ.Customer.Contacts.Service.Business.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "XYZ.Customer.Contacts.Service.Web.csproj" -c Release -o /app/publish
+RUN dotnet publish -c Release -o /app
+
 
 FROM base AS final
 WORKDIR /app
