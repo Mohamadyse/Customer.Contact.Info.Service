@@ -45,7 +45,9 @@ namespace XYZ.Customer.Contacts.Service.Web.Controllers.Versions.v1
             {
                 if (_customerValidator.SecurityNumberValidator(pnr, out var message))
                 {
-                    var result = MapCustomerDTOToViewModel(_customerProvider.GetCustomer(pnr));
+                    var found = _customerProvider.GetCustomer(pnr);
+                    if (found ==null) return NotFound();
+                    var result = MapCustomerDTOToViewModel(found);
                     return new JsonResult(result) { StatusCode = (int)HttpStatusCode.OK };
                 }
                 return new JsonResult(message) { StatusCode = (int)HttpStatusCode.BadRequest };
@@ -81,7 +83,9 @@ namespace XYZ.Customer.Contacts.Service.Web.Controllers.Versions.v1
                 if (_customerValidator.SecurityNumberValidator(pnr, out var message) && pnr == customer.SocialSecurityNumber)
                 {
                     _customerValidator.Vaidate(customer);
-                    _customerProvider.UpdateCustomer(pnr, MapCustomerViewModelToDTO(customer));
+                    var result = _customerProvider.UpdateCustomer(pnr, MapCustomerViewModelToDTO(customer));
+                    if (result == null) return NotFound();
+                    return new JsonResult( result );
                 }
                 return new JsonResult(message) { StatusCode = (int)HttpStatusCode.BadRequest };
             }
@@ -99,8 +103,11 @@ namespace XYZ.Customer.Contacts.Service.Web.Controllers.Versions.v1
             {
                 if (_customerValidator.SecurityNumberValidator(pnr, out var message))
                 {
+                    var result = _customerProvider.DeleteCustomer(pnr);
 
-                    return new JsonResult(_customerProvider.DeleteCustomer(pnr)) { StatusCode = (int)HttpStatusCode.OK };
+                    if (result == null) return NotFound();
+
+                    return new JsonResult(result) { StatusCode = (int)HttpStatusCode.OK };
 
                 }
                 return new JsonResult(message) { StatusCode = (int)HttpStatusCode.BadRequest };
